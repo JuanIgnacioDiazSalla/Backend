@@ -1,9 +1,7 @@
 // Imports
 
 const fs = require('fs');
-const { spec } = require('node:test/reporters');
 
-const path = require('path')
 
 // Logica
 
