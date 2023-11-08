@@ -2,81 +2,88 @@
 
 const fs = require('fs');
 
-// Logica
+const path = require('path');
+
+// Clase
 
 class ProductManager {
 
-    constructor(rutaDeArchivo) {
+    constructor() {
         this.products = [];
-        this.path = rutaDeArchivo;
-        this.specificPath = rutaDeArchivo + "/products.json"
-        if (!fs.existsSync(this.path)) {
-            fs.mkdirSync(this.path);
-        } else {
-            this.products = JSON.parse(fs.readFileSync(this.specificPath, "utf-8"));
-            console.log("Lista de productos encontrada!");
-        };
+        this.path = path.join(__dirname, './products');
     };
 
     actualizar() {
-        const arrayProducts = JSON.stringify(this.products, null, 5)
-        fs.unlinkSync(this.specificPath);
-        fs.writeFileSync(this.specificPath, arrayProducts, { encoding: "utf-8" });
-        console.log("Lista de productos actualizada!" + `\n` + "Lista de productos:");
-        console.log(this.products);
+        const contenido = fs.readFileSync(this.path, 'utf-8');
+        console.log(contenido);
     };
+
+    actualizarProducts() {
+        if (!fs.existsSync(this.path)) {
+            this.products = [];
+        } else {
+            this.products = JSON.parse(fs.readFileSync(path.join(this.path, 'products.json'), "utf-8"));
+        };
+    }
 
     addProduct(title, description, price, thumbnail, code, stock) {
 
-        let duplicateProduct = this.products.some(product => code === product.code);
+        this.actualizarProducts();
 
-        if (duplicateProduct == true) {
-            console.log("El producto que intenta añadir ya se encuentra dentro de la lista de productos!");
+        if (this.products.length > 0) {
+            let duplicateProduct = this.products.some(product => code === product.code);
+
+            if (duplicateProduct == true) {
+                console.log("El producto que intenta añadir ya se encuentra dentro de la lista de productos!");
+            } else {
+
+                // creando id y añadiendo a array
+
+                let id = this.products[this.products.length - 1].id + 1;
+
+                let newProduct = { title, description, price, thumbnail, code, stock, id };
+
+                this.products.push(newProduct);
+
+                // añadiendo al json
+
+                const jsonProducts = JSON.stringify(this.products, null, 5);
+
+                fs.writeFileSync(path.join(this.path, 'products.json'), jsonProducts, { encoding: "utf-8" });
+
+                console.log("Producto agregado!");
+
+            };
         } else {
 
             // creando id y añadiendo a array
 
             let id = 1;
 
-            if (this.products.length > 0) {
-                id = this.products[this.products.length - 1].id + 1;
-            };
-
             let newProduct = { title, description, price, thumbnail, code, stock, id };
 
             this.products.push(newProduct);
 
-            // añadiendo al json
+            // creando json
+
             const jsonProducts = JSON.stringify(this.products, null, 5);
-            if (!fs.existsSync(this.specificPath)) { //creo el json si no esta creado
-                fs.writeFileSync(this.specificPath, jsonProducts, { encoding: "utf-8" });
-            } else { //edito el json creado (creo uno nuevo tomando de base el viejo)
-                const contenido = JSON.parse(fs.readFileSync(this.specificPath, "utf-8"));
-                contenido.push(newProduct);
-                const contenidoEditado = JSON.stringify(contenido, null, 5);
-                fs.unlinkSync(this.specificPath);
-                fs.writeFileSync(this.specificPath, contenidoEditado, { encoding: "utf-8" });
-            }
+
+            fs.mkdirSync(this.path)
+
+            fs.writeFileSync(path.join(this.path, 'products.json'), jsonProducts, { encoding: "utf-8" });
 
             console.log("Producto agregado!");
-        };
 
+        }
     };
 
     getProducts() {
-        if (this.products.length > 0) {
-            let productNumber = 0
-            this.products.forEach(product => {
-                productNumber++;
-                console.log(`Producto numero ${productNumber}:`);
-                console.log(product);
-            });
-        } else {
-            console.log(this.products);
-        };
+        this.actualizarProducts();
+        console.log(this.products);
     };
 
     getProductById(id) {
+        this.actualizarProducts();
         let specificProduct = this.products.find(product => product.id === id);
         if (specificProduct != null) {
             console.log("Producto encontrado: ");
@@ -84,7 +91,6 @@ class ProductManager {
         } else {
             console.log("Producto no encontrado");
         };
-
     };
 
     updateProductById(id, campoACambiar, valorACambiar) {
@@ -148,20 +154,14 @@ class ProductManager {
     }
 };
 
-// Test
+// Instancia
 
-// productManager
+// creo instancia productManager
 
-const productManager = new ProductManager("./products");
+const productManager = new ProductManager();
 
 // prueba
 
 for (i = 1; i < 11; i++) {
     productManager.addProduct(`Producto Prueba ${i}`, "Este es un producto de prueba", 200, "Sin imagen", `codigo_nro_${i}`, 25);
 };
-
-
-
-
-
-
