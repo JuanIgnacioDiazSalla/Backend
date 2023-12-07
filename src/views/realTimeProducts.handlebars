@@ -1,0 +1,31 @@
+<div id="realTimeProducts">
+    <h1>Real Time Products</h1>
+</div>
+
+<div id="listaRTP">
+
+    <button id="refresh">Refresh</button>
+
+    <ol>
+        {{#each products}}
+
+
+        <li>
+            <h4>Title: {{this.title}}</h4>
+            <p>Description: {{this.description}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Thumbnail: {{this.thumbnail}}</p>
+            <p>Code: {{this.code}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Category:{{this.category}}</p>
+            <p>Status:{{this.status}}</p>
+        </li>
+
+
+        {{/each}}
+    </ol>
+
+</div>
+
+<script src="socket.io/socket.io.js"></script>
+<script src="js/viewRouter.js"></script>

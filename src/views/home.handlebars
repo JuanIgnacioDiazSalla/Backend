@@ -1,0 +1,44 @@
+<div id="homeDiv">
+    <h1>HOME</h1>
+    <hr>
+</div>
+<div id="listaHome">
+    <ol>
+        {{#if limite}}
+        {{#each productsAMostrar}}
+
+
+        <li>
+            <h4>Title: {{this.title}}</h4>
+            <p>Description: {{this.description}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Thumbnail: {{this.thumbnail}}</p>
+            <p>Code: {{this.code}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Category:{{this.category}}</p>
+            <p>Status:{{this.status}}</p>
+            <p>ID:{{this.id}}</p>
+        </li>
+
+
+        {{/each}}
+        {{else}}
+        {{#each products}}
+
+
+        <li>
+            <h4>Title: {{this.title}}</h4>
+            <p>Description: {{this.description}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Thumbnail: {{this.thumbnail}}</p>
+            <p>Code: {{this.code}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Category:{{this.category}}</p>
+            <p>Status:{{this.status}}</p>
+        </li>
+
+
+        {{/each}}
+        {{/if}}
+    </ol>
+</div>
