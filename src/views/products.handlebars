@@ -1,0 +1,107 @@
+<div id="homeDiv">
+    <h1>HOME</h1>
+    <hr>
+</div>
+<div id="listaHome">
+    <ol>
+        {{#if limit}}
+        {{#each productsMDB}}
+
+
+        <li>
+            <h4>Title: {{this.title}}</h4>
+            <p>Description: {{this.description}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Thumbnail: {{this.thumbnail}}</p>
+            <p>Code: {{this.code}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Category:{{this.category}}</p>
+            <p>Status:{{this.status}}</p>
+            <p>_id:{{this._id}}</p>
+
+            <button>Agregar al carrito</button>
+        </li>
+
+
+        {{/each}}
+        {{else}}
+        {{#each productsMDB}}
+
+
+        <li>
+            <h4>Title: {{this.title}}</h4>
+            <p>Description: {{this.description}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Thumbnail: {{this.thumbnail}}</p>
+            <p>Code: {{this.code}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Category:{{this.category}}</p>
+            <p>Status:{{this.status}}</p>
+            <p>_id:{{this._id}}</p>
+
+            <button>Agregar al carrito</button>
+        </li>
+
+
+        {{/each}}
+        {{/if}}
+    </ol>
+</div>
+<br>
+<div id="buttons">
+
+    {{#if limit}}
+
+    <a href="/products/?limit={{limit}}&page=1">1</a>
+
+    {{#if hasPrevPage}}
+
+    <a href="/products/?limit={{limit}}&page={{prevPage}}">Anterior</a>
+
+    {{else}}
+
+    <span>Anterior</span>
+
+    {{/if}}
+
+    {{#if hasNextPage}}
+
+    <a href="/products/?limit={{limit}}&page={{nextPage}}">Siguiente</a>
+
+    {{else}}
+
+    <span>Siguiente</span>
+
+    {{/if}}
+
+    <a href="/products/?limit={{limit}}&page={{totalPages}}">Ultima</a>
+
+    {{else}}
+
+    <a href="/products/?page=1">1</a>
+
+    {{#if hasPrevPage}}
+
+    <a href="/products/?page={{prevPage}}">Anterior</a>
+
+    {{else}}
+
+    <span>Anterior</span>
+
+    {{/if}}
+
+    {{#if hasNextPage}}
+
+    <a href="/products/?page={{nextPage}}">Siguiente</a>
+
+    {{else}}
+
+    <span>Siguiente</span>
+
+    {{/if}}
+
+    <a href="/products/?page={{totalPages}}">Ultima</a>
+
+    {{/if}}
+
+</div>
