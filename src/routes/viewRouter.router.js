@@ -21,6 +21,52 @@ function infoProducts() {
 
 const router = Router();
 
+router.get('/', async (req, res) => {
+
+    let { limit, sort, page } = req.query;
+
+    if (!page) {
+        page = 1;
+    } else {
+        page = parseInt(page);
+    };
+
+    if (sort == 1 || sort == "asc") {
+        sort = "asc";
+    } else if (sort == -1 || sort == "desc") {
+        sort = "desc";
+    } else {
+        sort = null;
+    }
+
+    console.log(sort)
+
+    let productsMDB = [];
+
+    if (!limit) {
+        limit = 10
+    } else {
+        limit = parseInt(limit)
+    };
+
+    try {
+
+        sort != null ? productsMDB = await productsModel.paginate({}, { lean: true, limit: limit, page: page, sort: { price: sort } }) : productsMDB = await productsModel.paginate({}, { lean: true, limit: limit, page: page })
+
+        console.log(productsMDB)
+
+    } catch (error) {
+
+        console.log('error en get ( "/products" ) con limite: ', error);
+
+    };
+
+    let { totalPages, hasNextPage, hasPrevPage, prevPage, nextPage } = productsMDB
+
+    res.status(200).render("home", { productsMDB: productsMDB.docs, totalPages, hasNextPage, hasPrevPage, prevPage, nextPage, limit, sort });
+
+});
+
 router.get('/products', async (req, res) => {
 
     let { limit, page } = req.query;

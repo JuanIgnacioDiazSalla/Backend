@@ -1,0 +1,61 @@
+<div id="homeDiv">
+    <h1>HOME</h1>
+    <hr>
+</div>
+<div id="listaHome">
+    {{#if sort}}
+    <h2>Sort:{{sort}}</h2>
+    {{else}}
+    <h2>Sort: None</h2>
+    {{/if}}
+    <ol>
+        {{#each productsMDB}}
+
+
+        <li>
+            <h4>Title: {{this.title}}</h4>
+            <p>Description: {{this.description}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Thumbnail: {{this.thumbnail}}</p>
+            <p>Code: {{this.code}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Category:{{this.category}}</p>
+            <p>Status:{{this.status}}</p>
+            <p>_id:{{this._id}}</p>
+
+        </li>
+
+
+        {{/each}}
+    </ol>
+</div>
+<br>
+<div id="buttons">
+
+    <a href="/?limit={{limit}}&page=1&sort={{sort}}">1</a>
+
+    {{#if hasPrevPage}}
+
+    <a href="/?limit={{limit}}&page={{prevPage}}&sort={{sort}}">Anterior</a>
+
+    {{else}}
+
+    <span>Anterior</span>
+
+    {{/if}}
+
+    {{#if hasNextPage}}
+
+    <a href="/?limit={{limit}}&page={{nextPage}}&sort={{sort}}">Siguiente</a>
+
+    {{else}}
+
+    <span>Siguiente</span>
+
+    {{/if}}
+
+    <a href="/?limit={{limit}}&page={{totalPages}}&sort={{sort}}">Ultima</a>
+
+
+
+</div>

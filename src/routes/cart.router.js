@@ -339,6 +339,8 @@ router.put('/:cid', async (req, res) => {
 
         let { newProducts } = req.body;
 
+        console.log(newProducts, specificCart)
+
         let verified = ""
 
         for (let step = 0; step < newProducts.length; step++) {
@@ -371,26 +373,13 @@ router.put('/:cid', async (req, res) => {
             let updateCart
 
             try {
-                updateCart = await cartsModel.updateOne({ _id: cid }, { $set: { "newProducts": newProducts } })
 
-            } catch (error) {
-                console.log("error en put ( '/:cid' ) set", error)
-            }
-
-            try {
-                updateCart = await cartsModel.updateOne({ _id: cid }, { $unset: { products: "" } })
-
-            } catch (error) {
-                console.log("error en put ( '/:cid' ) unset", error)
-            }
-
-            try {
-                updateCart = await cartsModel.updateOne({ _id: cid }, { $rename: { "newProducts": "products" } })
+                updateCart = await cartsModel.updateOne({ _id: cid }, { $set: { "products": newProducts } })
 
                 res.setHeader('Content-Type', 'application/json');
                 res.status(200).json({ updatedCart2: updateCart });
             } catch (error) {
-                console.log("error en put ( '/:cid' ) rename", error)
+                console.log("error en put ( '/:cid' ) set", error)
             }
 
         };
@@ -424,7 +413,7 @@ router.delete('/:cid', async (req, res) => {
 
     } else {
 
-        deletedCart = await cartsModel.deleteOne({ _id: cid });
+        deletedCart = await cartsModel.updateOne({ _id: cid }, { $set: { products: [] } });
 
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json({ deletedCart: deletedCart });
