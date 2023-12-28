@@ -1,0 +1,16 @@
+<div id="registerDiv">
+    <h1>Registro de usuario</h1>
+</div>
+
+<form action="/api/sessions/register" method="post">
+
+    {{#if error}}
+    <h4>error: {{error}}</h4>
+    {{/if}}
+
+    <input type="text" name="name" placeholder="nombre">
+    <input type="email" name="email" placeholder="mail">
+    <input type="password" name="password" placeholder="contraseña">
+    <br>
+    <input type="submit" value="Register">
+</form>

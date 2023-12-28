@@ -1,0 +1,112 @@
+[
+     {
+          "title": "Producto Prueba 1",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_1",
+          "stock": 25,
+          "category": "categoria_1",
+          "status": true,
+          "id": 1
+     },
+     {
+          "title": "Producto Prueba 2",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_2",
+          "stock": 25,
+          "category": "categoria_2",
+          "status": true,
+          "id": 2
+     },
+     {
+          "title": "Producto Prueba 3",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_3",
+          "stock": 25,
+          "category": "categoria_3",
+          "status": true,
+          "id": 3
+     },
+     {
+          "title": "Producto Prueba 4",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_4",
+          "stock": 25,
+          "category": "categoria_4",
+          "status": true,
+          "id": 4
+     },
+     {
+          "title": "Producto Prueba 5",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_5",
+          "stock": 25,
+          "category": "categoria_5",
+          "status": true,
+          "id": 5
+     },
+     {
+          "title": "Producto Prueba 6",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_6",
+          "stock": 25,
+          "category": "categoria_6",
+          "status": true,
+          "id": 6
+     },
+     {
+          "title": "Producto Prueba 7",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_7",
+          "stock": 25,
+          "category": "categoria_7",
+          "status": true,
+          "id": 7
+     },
+     {
+          "title": "Producto Prueba 8",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_8",
+          "stock": 25,
+          "category": "categoria_8",
+          "status": true,
+          "id": 8
+     },
+     {
+          "title": "Producto Prueba 9",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_9",
+          "stock": 25,
+          "category": "categoria_9",
+          "status": true,
+          "id": 9
+     },
+     {
+          "title": "Producto Prueba 10",
+          "description": "Este es un producto de prueba",
+          "price": 200,
+          "thumbnail": "Sin imagen",
+          "code": "codigo_nro_10",
+          "stock": 25,
+          "category": "categoria_10",
+          "status": true,
+          "id": 10
+     }
+]
