@@ -1,0 +1,24 @@
+
+import { Router } from "express";
+
+import { ProductsController } from "../controller/products.controller.js";
+
+import path from "path";
+import __dirname from "../utils.js";
+import fs from "fs";
+
+const pathProducts = path.join(__dirname, '..', 'products')
+
+const router = Router();
+
+router.get('/', ProductsController.getProducts);
+
+router.get('/:pid', ProductsController.getSpecificProduct);
+
+router.post('/', ProductsController.postProduct);
+
+router.put('/:pid', ProductsController.putProduct);
+
+router.delete('/:pid', ProductsController.deleteProduct);
+
+export default router;
