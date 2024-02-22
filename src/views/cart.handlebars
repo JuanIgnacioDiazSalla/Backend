@@ -1,0 +1,30 @@
+<div id="cart">
+    <h1>CARRITO</h1>
+</div>
+
+<div id="listaCart">
+
+    <h3>Id del carrito: {{cartId}}</h3>
+    <ol>
+        {{#each arrayProducts}}
+
+        <li>
+            <h4>Title: {{this.productId.title}}</h4>
+            <p>Description: {{this.productId.description}}</p>
+            <p>Price: {{this.productId.price}}</p>
+            <p>Thumbnail: {{this.productId.thumbnail}}</p>
+            <p>Code: {{this.productId.code}}</p>
+            <p>Stock: {{this.productId.stock}}</p>
+            <p>Category:{{this.productId.category}}</p>
+            <p>Status:{{this.productId.status}}</p>
+            <p>_id:{{this.productId._id}}</p>
+            <p>Quantity: {{this.quantity}}</p>
+        </li>
+
+        {{/each}}
+    </ol>
+
+</div>
+
+<script src="socket.io/socket.io.js"></script>
+<script src="js/viewRouter.js"></script>
