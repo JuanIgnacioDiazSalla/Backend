@@ -1,0 +1,23 @@
+<div id="loginDiv">
+    <h1>Ingreso de usuario</h1>
+</div>
+
+<form action="/api/sessions/login" method="post">
+
+    {{#if error}}
+    <h4>error: {{error}}</h4>
+    {{/if}}
+
+    {{#if message}}
+    <h4>{{message}}</h4>
+    {{/if}}
+
+    <input type="email" name="email" placeholder="mail">
+    <input type="password" name="password" placeholder="contraseña">
+    <br>
+    <input type="submit" value="Enter">
+</form>
+
+<div id="githubLink">
+    <a href="/api/sessions/github">Login via GitHub</a>
+</div>
