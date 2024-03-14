@@ -1,0 +1,116 @@
+// imports
+
+import productManager from "./dao/productManager.js";
+
+import express from "express";
+
+import { engine } from "express-handlebars";
+
+import { Server } from "socket.io";
+
+import mongoose from "mongoose";
+
+import sessions from "express-session"
+import mongoStore from "connect-mongo"
+
+import path from "path";
+
+import __dirname, { logg } from "./utils.js"
+
+
+import routerProducts from "./routes/products.router.js";
+
+import routerCart from "./routes/cart.router.js";
+
+import routerSessions from "./routes/sessions.router.js"
+
+import routerView from "./routes/viewRouter.router.js";
+
+import routerUsers from "./routes/users.router.js";
+
+import { initializePassport } from "./config/config.passport.js";
+
+import { config } from "./config/config.js";
+
+import passport from "passport";
+
+import swaggerJSDoc from "swagger-jsdoc";
+
+import swaggerUi from "swagger-ui-express";
+
+// server
+
+const PORT = 8080;
+
+const app = express();
+
+const options = {
+
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Proyecto e-commerce CoderHouse",
+            version: "1.0.0",
+            description: "Documentación Proyecto e-commerce CoderHouse"
+        }
+    },
+
+    apis: ["./docs/*.yaml"]
+
+};
+
+const specs = swaggerJSDoc(options);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, './public')));
+
+app.use(sessions({
+    store: mongoStore.create({
+        mongoUrl: config.MONGO_URL,
+        mongoOptions: {
+            dbName: config.DBNAME
+        }
+    }),
+    secret: config.SECRET,
+    resave: true,
+    saveUninitialized: true
+}));
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(logg);
+
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, './views'));
+
+app.use('/api/products', routerProducts);
+
+app.use('/api/carts', routerCart);
+
+app.use('/api/sessions', routerSessions);
+
+app.use('/api/users', routerUsers);
+
+app.use('/', routerView);
+
+
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+const server = app.listen(PORT, () => {
+    console.log(`Server port: ${PORT}`);
+});
+
+
+// mongodb
+// usuario: UsuarioPrueba; contraseña: CoderHouse
+
+try {
+    await mongoose.connect(config.MONGO_URL, { dbName: config.DBNAME });
+    console.log("DB conectada!")
+} catch (error) {
+    console.log(error);
+};

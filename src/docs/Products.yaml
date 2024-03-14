@@ -1,0 +1,106 @@
+path:
+
+  /api/products/:
+
+    get:
+      summary: Obtiene todos los productos.
+      tags: 
+        - Products
+      responses:
+        "200": 
+          description: Se obtuvieron todos los productos.
+          content: 
+            aplication/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/products'
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Numero que representa la cantidad maxima de productos que pueden salir en una (1) pagina.
+          - in: query
+          name: page
+          schema:
+            type: integer
+          description: Numero que representa el numero de pagina que se esta viendo actualmente.
+          - in: query
+          name: sort
+          description: Numero (1 / -1) o palabra (asc / desc) que representa el orden de los productos dentro de la pagina, ya sea ascendente (asc & 1) o descendente (desc / -1), teniendo en cuenta su precio.
+
+    post:
+      summary: Añade un producto.
+      tags: 
+        - Products
+      requestBody:
+        description: Propiedades necesarias para poder agregar un producto.
+        content:
+          aplication/json:
+              schema:
+                items: 
+                  $ref: '#/components/schemas/products'
+
+      responses:
+        "200":
+          description: El producto fue añadido correctamente.
+          content: 
+            aplication/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/products'
+
+  /api/products/{pid}:
+
+    get:
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a buscar.
+          schema:
+            type: string
+
+      summary: Obtiene un producto en específico vía ID.
+      tags: 
+        - Products
+      responses:
+        "200": 
+          description: Se obtuvo el producto deseado.
+          content: 
+            items:
+              $ref: '#/components/schemas/products'
+
+    put:
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a actualizar.
+          schema:
+            type: string
+
+      summary: Modifica un producto en específico vía ID.
+      tags: 
+        - Products
+      responses:
+        "200": 
+          description: Se modificó el producto deseado.
+    
+    delete:
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a eliminar.
+          schema:
+            type: string
+
+      summary: Elimina un producto en específico vía ID.
+      tags: 
+        - Products
+      responses:
+        "200": 
+          description: Se eliminó el producto deseado.
