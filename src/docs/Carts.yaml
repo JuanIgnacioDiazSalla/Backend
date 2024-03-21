@@ -1,0 +1,232 @@
+path:
+
+  /api/carts/:
+
+    get:
+      summary: Obtiene todos los carritos.
+      tags: 
+        - Carts
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Numero que representa la cantidad maxima de productos que pueden salir en una (1) pagina.
+          - in: query
+          name: page
+          schema:
+            type: integer
+          description: Numero que representa el numero de pagina que se esta viendo actualmente.
+      
+      responses:
+        "200": 
+          description: Se obtuvieron todos los carritos.
+          content: 
+            aplication/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/carts'
+
+    post:
+      summary: Añade un carrito.
+      tags: 
+        - Carts
+      requestBody:
+        description: Propiedades necesarias para poder agregar un carrito.
+        content:
+          aplication/json:
+              schema:
+                items: 
+                  $ref: '#/components/schemas/carts'
+
+      responses:
+        "200":
+          description: El carrito fue añadido correctamente.
+          content: 
+            aplication/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/carts'
+
+  /api/carts/{cid}:
+
+    get:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a buscar.
+          schema:
+            type: string
+
+      summary: Obtiene un carrito en específico vía ID.
+      tags: 
+        - Carts
+      responses:
+        "200": 
+          description: Se obtuvo el carrito deseado.
+          content: 
+            items:
+              $ref: '#/components/schemas/carts'
+
+    put:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a actualizar.
+          schema:
+            type: string
+
+      requestBody:
+        description: Propiedades necesarias para poder modificar un carrito.
+        content:
+          aplication/json:
+              schema:
+                items: 
+                  $ref: '#/components/schemas/carts'
+
+      summary: Modifica un carrito en específico vía ID.
+      tags: 
+        - Carts
+      responses:
+        "200": 
+          description: Se modificó el carrito deseado.
+          content: 
+            items:
+              $ref: '#/components/schemas/carts'
+
+    delete:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a eliminar.
+          schema:
+            type: string
+
+      summary: Elimina un carrito en específico vía ID.
+      tags: 
+        - Carts
+      responses:
+        "200": 
+          description: Se eliminó el carrito deseado.
+          content: 
+            items:
+              $ref: '#/components/schemas/carts'
+
+  /api/carts/{cid}/products/{pid}:
+
+    post:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a añadir.
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: Id del productos a añadir.
+          schema:
+            type: string
+
+      requestBody:
+        description: Propiedades necesarias para poder agregar un carrito.
+        content:
+          aplication/json:
+              schema:
+                productQuantity:
+                  type: object
+                  properties:
+                    quantity:
+                      type: integer
+
+      summary: Añade un producto a un carrito específico vía ID.
+      tags: 
+        - Carts
+      responses:
+        "200": 
+          description: Se añadió el producto a el carrito deseado.
+          content: 
+            items:
+              $ref: '#/components/schemas/carts'
+
+    put:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a modificar.
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a modificar.
+          schema:
+            type: string
+
+      requestBody:
+        description: Propiedades necesarias para poder modificar la lista de productos de un carrito.
+        content:
+          aplication/json:
+              schema:
+                items:
+                  $ref: '#/components/schema/carts'
+
+      summary: Modifíca la lista de productos a un carrito específico vía ID.
+      tags: 
+        - Carts
+      responses:
+        "200": 
+          description: Se modificó el producto al carrito deseado.
+          content: 
+            items:
+              $ref: '#/components/schemas/carts'
+
+    delete:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a específico.
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a eliminar.
+          schema:
+            type: string
+
+      summary: Elimina un producto a un carrito específico vía ID.
+      tags: 
+        - Carts
+      responses:
+        "200": 
+          description: Se eliminó el producto a el carrito deseado.
+
+  /api/carts/{cid}/purchase:
+
+    put:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a comprar.
+          schema:
+            type: string
+
+      summary: Compra un carrito en específico vía ID.
+      tags: 
+        - Carts
+      responses:
+        "200": 
+          description: Se compró el carrito deseado.
+          content: 
+            items:
+              $ref: '#/components/schemas/carts'
